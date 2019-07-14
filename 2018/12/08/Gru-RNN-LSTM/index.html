@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Gru-RNN &amp; LSTM › UNDEFINED-W</title>
+  <meta name="author" content="Henry Litte">
+  
+  <meta name="description" content="Original Recurrent Neural Network$$h_{t}=f_{w}\left( h_{t-1},x_{t}\right)$$
+The vallina RNN contains a hidden cell-state to remember the information in the past. In the above equation $f_W$ represents function with pramater $W$ , $x_t$ corespond to the input vector at a given time step.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Gru-RNN &amp; LSTM">
+  <meta property="og:site_name" content="UNDEFINED-W">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="UNDEFINED-W" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header"><div class="meta inner">
+  <h1><a href="/">UNDEFINED-W</a></h1>
+  <h2><a href="/"></a></h2>
+  <nav id="main-nav">
+    <ul>
+      
+      <li><a href="/about">About</a></li>
+      
+      <li><a href="/archives">Archives</a></li>
+      
+      <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+</div>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="title">Gru-RNN &amp; LSTM</h1>
+  
+
+      
+        <time datetime="2018-12-08T12:47:35.000Z">2018-12-08</time>
+      
+    </header>
+    <div class="entry">
+      
+        <h3 id="Original-Recurrent-Neural-Network"><a href="#Original-Recurrent-Neural-Network" class="headerlink" title="Original Recurrent Neural Network"></a>Original Recurrent Neural Network</h3><p>$$<br>h_{t}=f_{w}\left( h_{t-1},x_{t}\right)<br>$$</p>
+<p>The vallina RNN contains a hidden cell-state to <em>remember</em> the information in the past. In the above equation $f_W$ represents function with pramater $W$ , $x_t$ corespond to the input vector at a given time step.</p>
+<a id="more"></a>
+
+<p>This is a simple illustration of a RNN:<br>$$<br>h_{t}=\tanh \left( W_{hh}h_{t-1}+W_{xh}X_{t}\right)<br>$$</p>
+<p>$$<br>y_{t} = W_{hy}h_{t}<br>$$</p>
+<p><img src="/Users/linc/Downloads/fullsizerender(1).jpg" alt="fullsizerender(1)"></p>
+<p>But this kind of RNN is hard to train due to some major reasons:</p>
+<ul>
+<li>Vanishing gradients</li>
+<li>Exploding gradients</li>
+</ul>
+<p>We can use techniques like <strong>Grandient clipping</strong>[Scale the gradient if its norm gets too big] to solve the first problem, but for the second one we can’t do it so easily.</p>
+<p>So, there are different variants developed to solve this problem, here we are showing two of them.</p>
+<h3 id="Introduction-to-Gru-RNN-Gated-Recurrent-Unit"><a href="#Introduction-to-Gru-RNN-Gated-Recurrent-Unit" class="headerlink" title="Introduction to Gru-RNN (Gated Recurrent Unit)"></a>Introduction to Gru-RNN (Gated Recurrent Unit)</h3><p><strong>#Add additonal control gates in the <em>cells</em> is a common strategys in these more complex RNN variations</strong></p>
+<p>![1_6eNTqLzQ08AABo-STFNiBw (1)](/Users/linc/Downloads/1_6eNTqLzQ08AABo-STFNiBw (1).png)</p>
+<p><img src="/Users/linc/Downloads/1_qx5uUSVgL_QCvsJ_yM2pMA.png" alt="1_qx5uUSVgL_QCvsJ_yM2pMA"></p>
+<h4 id="0-GRU"><a href="#0-GRU" class="headerlink" title="0.GRU"></a>0.GRU</h4><p>The picture above indicates the <strong>computational graph</strong> of a single time-step forward </p>
+<h4 id="1-Update-Gate"><a href="#1-Update-Gate" class="headerlink" title="1.Update Gate"></a>1.Update Gate</h4><p><strong>The update gate helps the model to determine how much of the past information (from previous time steps) needs to be passed along to the future</strong><br>$$<br>z_{t}=\sigma \left( W_{z}x_{t}+U_{z}h_{t-1}\right)<br>$$<br>In the function, $U_{z}$controls how much we preseve from the previous states, then it is add to the current input. The summation is then pass to a <strong>SIgmoid</strong> activation function which will be used as the coefficient  to calculate <em>Current cell state</em> later.</p>
+<h4 id="2-Reset-Gate"><a href="#2-Reset-Gate" class="headerlink" title="2.Reset Gate"></a>2.Reset Gate</h4><p><strong>Have the same form as <em>Update Gate</em> , used as the coeffecient for</strong> $h_{t-1}$ <strong>when calcualte</strong> $h’<em>{t}$<br>$$<br>r</em>{t}=\sigma\left(W_{r}x_t+U_{r}h_{t-1}\right)<br>$$<br>Share the same form as <strong>Update Gate</strong> but act differently in the final computation.</p>
+<h4 id="3-Pre-current-hidden-state"><a href="#3-Pre-current-hidden-state" class="headerlink" title="3.Pre-current hidden state"></a>3.Pre-current hidden state</h4><p>$$<br>h’<em>{t}=tanh\left(W</em>{p}x_{t}+r_{t}\odot U_{p}h_{h-1}\right)<br>$$</p>
+<h4 id="4-Final-current-hidden-state"><a href="#4-Final-current-hidden-state" class="headerlink" title="4.Final current hidden state"></a>4.Final current hidden state</h4><p>Calculate the final state<br>$$<br>h_{t}=z_{t}\odot h_{t-1}+\left(1-z_{t}\right)\odot h’_{t}<br>$$</p>
+
+      
+    </div>
+      
+      <footer>
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+      </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2019/07/14/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2019/07/14/Xiaomi-Notebook-Pro-Under-Voltage-in-Win-Mac/">Xiaomi Notebook Pro Under Voltage in MacOS</a>
+      </li>
+    
+      <li>
+        <a href="/2018/12/08/Gru-RNN-LSTM/">Gru-RNN &amp; LSTM</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Henry Litte
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+</body>
+</html>
+

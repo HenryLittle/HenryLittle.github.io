@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Xiaomi Notebook Pro Under Voltage in MacOS › UNDEFINED-W</title>
+  <meta name="author" content="Henry Litte">
+  
+  <meta name="description" content="prefaceUsing XTU or VoltageShift to undervolt and adjust powerlimit to get better thermal &amp;amp; performace. Also improves battery life in MacOS.
+requirement
+Mi Notebook Pro MX150 (tested on i7 16G model)
+
+BIOS version 603
+
+UnderVolt Patch">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Xiaomi Notebook Pro Under Voltage in MacOS">
+  <meta property="og:site_name" content="UNDEFINED-W">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="UNDEFINED-W" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header"><div class="meta inner">
+  <h1><a href="/">UNDEFINED-W</a></h1>
+  <h2><a href="/"></a></h2>
+  <nav id="main-nav">
+    <ul>
+      
+      <li><a href="/about">About</a></li>
+      
+      <li><a href="/archives">Archives</a></li>
+      
+      <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+</div>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="title">Xiaomi Notebook Pro Under Voltage in MacOS</h1>
+  
+
+      
+        <time datetime="2019-07-14T04:48:52.000Z">2019-07-14</time>
+      
+    </header>
+    <div class="entry">
+      
+        <h2 id="preface"><a href="#preface" class="headerlink" title="preface"></a>preface</h2><p>Using XTU or VoltageShift to undervolt and adjust powerlimit to get better thermal &amp; performace. Also improves battery life in MacOS.</p>
+<h2 id="requirement"><a href="#requirement" class="headerlink" title="requirement"></a>requirement</h2><ul>
+<li><p>Mi Notebook Pro MX150 (tested on i7 16G model)</p>
+</li>
+<li><p>BIOS version 603</p>
+</li>
+<li><p>UnderVolt Patch</p>
+<a id="more"></a>
+<h2 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h2></li>
+<li><p>patch the bios in windows first</p>
+</li>
+<li><p>use XTU to find the proper voltage offset (My values -135mv for CPU)</p>
+</li>
+<li><p>change the onwer of the kext file</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R root:wheel build/Release/VoltageShift.kext</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>use <code>votageshift</code> to set powerlimit and offset</p>
+</li>
+<li><p>reboot (if things goes wrong use F3 to boot into the Recovery OS and run <code>csrutil</code>)</p>
+</li>
+</ul>
+
+      
+    </div>
+      
+      <footer>
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+      </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2019/07/14/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2019/07/14/Xiaomi-Notebook-Pro-Under-Voltage-in-Win-Mac/">Xiaomi Notebook Pro Under Voltage in MacOS</a>
+      </li>
+    
+      <li>
+        <a href="/2018/12/08/Gru-RNN-LSTM/">Gru-RNN &amp; LSTM</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Henry Litte
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+</body>
+</html>
+
